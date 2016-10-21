@@ -54,8 +54,7 @@ int main(int argc, char *argv[])
     }
 
     //For stupid people who want their 0 * 0 times table
-	//Also sets the minium column width to three so the product symbol
-	//is not next to the column
+	//Also sets the minium column width to three so the product symbol formatting fits
     if(column_width == 1){
         ++column_width;
     }
