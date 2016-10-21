@@ -1,25 +1,20 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
-int main(int argc, char *argv[])
+int main(void)
 {
-    int min_number = 0;
-    int max_number = 10;
 
-    if(argc > 3) {
-        printf("Usage: %s <min value> <max value> \n", argv[0]);
-        return 1;
+    int column_width = 4;
+    int first_column_width = 2;
+    char underline[64] = {"\u2500"};
+
+    for(int i = column_width; i>0; --i){ 
+        strncat(underline, "\u2500", sizeof(underline));
     }
-    else if (argc == 3){
-        min_number = strtol(argv[1], NULL, 10);
-        max_number = strtol(argv[2], NULL, 10);
-    }
-    else if (argc == 2){
-        min_number = 0;
-        max_number = strtol(argv[1], NULL, 10);    
+    for int i = 50; i>0; --i){
+        printf("%s", underline);
     }
 
-printf("%d  %d \n", min_number, max_number);
-
-
+    printf("%s  \n", underline);
 }
