@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 
 int main(int argc, char *argv[])
 {
@@ -30,11 +29,6 @@ int main(int argc, char *argv[])
         ++column_width;
     }
 
-    //For stupid people who want their 0 * 0 times table
-    if(column_width == 1){
-        ++column_width;
-    }
-
     //Determines the column_width of the first column
     int first_column_width = 0;
 
@@ -42,17 +36,30 @@ int main(int argc, char *argv[])
         ++first_column_width;
     }
 
+    //For stupid people who want their 0 * 0 times table
+    if(column_width == 1){
+        ++column_width;
+    }
+    if(first_column_width < 1){
+        ++first_column_width;
+    }
+
     //Creates a header
-    printf("%*s\u2502", first_column_width, "*");
+    printf("%*s\u2502", first_column_width, " ");
 
     for(int i = min_number; i <= max_number; ++i){
                 printf("%*d", column_width, i);
     }
     printf("\n");
+
+    //Prints out the border for the first column
+    for(int i = (first_column_width); i > 0; --i){
+        printf("%s", "\u2500");
+    }
+    //Prints out the cross section
+    printf("%s",  "\u253c");    
     
-    //Prints out the border for the header.  I have no idea why the number 3 works
-    printf("%*s", first_column_width + 3, "\u251c");    
-    
+    //Prints out the border for the rest of the columns
     for(int i = column_width * (max_number - min_number + 1); i > 0; --i){
         printf("%s", "\u2500");
     }
