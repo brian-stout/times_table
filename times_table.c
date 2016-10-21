@@ -3,25 +3,42 @@
 
 int main(int argc, char *argv[])
 {
+    //Default values if no input is given
     int min_number = 1;
     int max_number = 10;
 
-    /*Assigns the correct values to the min_number and max_number based
-      on the command line arguments and error handles if user inputs
-      more arguments then the program should handle*/
-    if(argc > 3) {
+    //Assigns the correct values to the min_number and max_number based
+    //on the command line arguments and error handles if user inputs
+    //more arguments then the program should handle
+    if(argc > 3){
         printf("Usage: %s <min value> <max value> \n", argv[0]);
         return 1;
     }
+    //Test for two arguments
     else if (argc == 3){
         min_number = strtol(argv[1], NULL, 10);
         max_number = strtol(argv[2], NULL, 10);
     }
+    //Test for one argument
     else if (argc == 2){
-        min_number = 1;
-        max_number = strtol(argv[1], NULL, 10);    
+        max_number = strtol(argv[1], NULL, 10);
+        //Prints out zero times table with one argument
+        if (max_number == 0){
+            min_number = 0;
+        }   
     }
-    
+
+    //Error section for other invalid inputs
+    if ((min_number < 0) || (max_number < 0)){
+        printf("Error: Negative numbers are invalid\n");
+        return 1;
+    }
+    if (min_number > max_number){
+        printf("Error: First argument (%d) must be"
+               " smaller than the second argument (%d)\n", min_number, max_number);
+        return 1;
+    }
+
     //Determines the amount of space nessecary to accomodate the largest product
     int column_width = 1;
 
@@ -41,39 +58,36 @@ int main(int argc, char *argv[])
         ++column_width;
     }
     if(first_column_width < 1){
-        ++first_column_width;
+        first_column_width = 2;
     }
 
-    //Creates a header
-    printf("%*s\u2502", first_column_width, " ");
+    //Creates a header, -2 is dervied from the two extra printed characters
+    printf("%*s\u2715 \u2503", first_column_width - 2, "");
 
     for(int i = min_number; i <= max_number; ++i){
                 printf("%*d", column_width, i);
     }
-    printf("\n");
+
+    printf("\n"); //Prints new line after top column
 
     //Prints out the border for the first column
     for(int i = (first_column_width); i > 0; --i){
-        printf("%s", "\u2500");
+        printf("%s", "\u2501");
     }
-    //Prints out the cross section
-    printf("%s",  "\u253c");    
+    //Prints out the cross section 
+    printf("%s",  "\u254b");    
     
     //Prints out the border for the rest of the columns
     for(int i = column_width * (max_number - min_number + 1); i > 0; --i){
-        printf("%s", "\u2500");
+        printf("%s", "\u2501");
     }
-    printf("\n");
+    printf("\n"); //Prints new line after border
 
     for(int i = min_number; i <= max_number; ++i){
-            printf("%*d\u2502", first_column_width, i);  //Prints the first column
-            for(int n = min_number; n <= max_number; ++n){
-                printf("%*d", column_width, i * n);
+            printf("%*d\u2503", first_column_width, i);  //Prints the first column
+            for(int j = min_number; j <= max_number; ++j){
+                printf("%*d", column_width, i * j);
             }
-            printf("\n");
+            printf("\n"); //Prints new line after each row of products
     }
-
-
-
-
 }
