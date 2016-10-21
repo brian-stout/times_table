@@ -54,11 +54,13 @@ int main(int argc, char *argv[])
     }
 
     //For stupid people who want their 0 * 0 times table
+	//Also sets the minium column width to three so the product symbol
+	//is not next to the column
     if(column_width == 1){
         ++column_width;
     }
-    if(first_column_width < 1){
-        first_column_width = 2;
+    if(first_column_width < 3){
+        first_column_width = 3;
     }
 
     //Creates a header, -2 is dervied from the two extra printed characters
