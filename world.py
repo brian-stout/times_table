@@ -1,15 +1,16 @@
 #!/usr/local/bin/python
 
 from map import Map
-from mining import Overlord
+
 import os
 from time import sleep
+from mining import Overlord
 
-TICKS = 100
+TICKS = 1000
 
 c = Overlord(TICKS)
 
-maps = { n: Map(10, 5) for n in range(3) }
+maps = { n: Map(20, 10) for n in range(3) }
 for n in maps:
     c.add_map(n, maps[n].summary())
 
@@ -20,6 +21,8 @@ print(zerg_locations)
 mined = 0
 
 for _ in range(TICKS):
+    if mined >= 135:
+        break
     act = c.action()
     print(act)
     if act.startswith('DEPLOY'):
@@ -45,10 +48,21 @@ for _ in range(TICKS):
 
     else:
         pass
+
+    #Haubrich's auto player implementation
+    #os.system("clear") 
     os.system("clear")
     for n in maps:
         maps[n].tick()
-        print(maps[n])
+        graph = c.get_graph(n)
+        if graph:
+            print()
+            #print(graph)
+            print(graph.mineralsMined)
+            print(graph.complete)
+        print(maps[n], end='\n')
+    print(c.ticksLeft)
     sleep(0.05)
+
 
 print(mined)
