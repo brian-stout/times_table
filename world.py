@@ -5,11 +5,11 @@ from mining import Overlord
 import os
 from time import sleep
 
-TICKS = 500
+TICKS = 1000
 
 c = Overlord(TICKS)
 
-maps = { n: Map(20, 10) for n in range(3) }
+maps = { n: Map(60, 20) for n in range(3) }
 for n in maps:
     c.add_map(n, maps[n].summary())
 
@@ -48,7 +48,7 @@ for _ in range(TICKS):
     os.system("clear")
     for n in maps:
         maps[n].tick()
-        print(maps[n])
+        #print(maps[n])
         graph = c.graphs.get(n)
         if graph:
             print(graph)
